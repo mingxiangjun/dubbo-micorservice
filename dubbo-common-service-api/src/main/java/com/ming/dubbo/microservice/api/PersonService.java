@@ -7,5 +7,5 @@ import com.alibaba.fastjson.JSONObject;
  * @create 2018-07-01 13:15
  **/
 public interface PersonService {
-    public JSONObject buildPersonInfo();
+    public JSONObject buildPersonInfo2();
 }
