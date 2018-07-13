@@ -1,40 +1,23 @@
 package com.ming.dubbo.microservice.common.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import jxl.CellView;
+import jxl.Workbook;
+import jxl.write.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import jxl.CellView;
-import jxl.Workbook;
-import jxl.write.Label;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableHyperlink;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.run.pls.server.core.tableparser.utils.EntityMapUtil;
-
-
 /**
- * 
- * @author liguowei 2015-11-10 上午11:49:23  ExportUtil.java
- * 导出工具类
- *
+ * 数据导出Excel工具类
+ * @author mingxiangjun
+ * @date 2018/7/13 上午10:12
  */
-
 public class ExportUtil {
 	/**
-	 * 20151202liguowei
 	 * 导出excel  一个excel多个sheet
 	 * @param exportDataMap
 	 * @param filename
@@ -52,11 +35,8 @@ public class ExportUtil {
             for (Entry<String, List<List<String>>> exportDataRntry : exportDataMap.entrySet()) {
             	
 	            List<List<String>> exportDataList = exportDataRntry.getValue();
-	            String sheetName = EntityMapUtil.getDisplayObjectEntityByName(exportDataRntry.getKey());
-	            if(StringUtils.isBlank(sheetName)){
-	            	sheetName = "数据导出";
-	            }
-	  	            
+	            String sheetName = "数据导出";
+
 	  	        WritableSheet sheet = workbook.createSheet(sheetName, sheetNum);
 	  	        
 	            
@@ -65,11 +45,7 @@ public class ExportUtil {
 	    		//wcfTitle.setBorder(jxl.format.Border.ALL,jxl.format.BorderLineStyle.THIN,jxl.format.Colour.BLACK);
 	    		//自动换行
 	    		//wcfTitle.setWrap(true);
-	    		//设置自动大小
-	    		CellView cellView = new CellView();
-	    		cellView.setAutosize(true);
-	    		sheet.getSettings().setAutomaticFormulaCalculation(true);
-	    		
+
 	            //表头 表体
 	            int row = 0;
 	            if(null != exportDataList && exportDataList.size()!=0){
@@ -116,10 +92,7 @@ public class ExportUtil {
      		int sheetNum = 1;
             for (Entry<String, List<List<String>>> exportDataRntry : exportDataMap.entrySet()) {
 	            List<List<String>> exportDataList = exportDataRntry.getValue();
-				String sheetName = EntityMapUtil.getResultLogDisplayByName(exportDataRntry.getKey());
-	            if(StringUtils.isBlank(sheetName)){
-	            	sheetName = "数据导出";
-	            }
+				String sheetName = "数据导出";
 	  	        WritableSheet sheet = workbook.createSheet(sheetName, sheetNum);
 	  	        // 添加超链接到首页目录
 	  	        ws.addHyperlink(new WritableHyperlink(1, sheetNum, sheetName, sheet, 0, 0));
@@ -130,8 +103,8 @@ public class ExportUtil {
 	    		//wcfTitle.setWrap(true);
 	    		//设置自动大小
 	    		CellView cellView = new CellView();
-	    		cellView.setAutosize(true);
-	    		sheet.getSettings().setAutomaticFormulaCalculation(true);
+//	    		cellView.setAutosize(true);
+//	    		sheet.getSettings().setAutomaticFormulaCalculation(true);
 	    		
 	            //表头 表体
 	            int row = 0;
@@ -154,7 +127,7 @@ public class ExportUtil {
 	/**
 	 * 20151202  liguowei
 	 * 生成文件到指定路径  一个excel多个sheet
-	 * @param exportDataList
+	 * @param exportDataMap
 	 * @param filename
 	 * @param response
 	 * @param path
@@ -172,11 +145,8 @@ public class ExportUtil {
             for (Entry<String, List<List<String>>> exportDataRntry : exportDataMap.entrySet()) {
 				
 	            List<List<String>> exportDataList = exportDataRntry.getValue();
-	            String sheetName = EntityMapUtil.getDisplayObjectEntityByName(exportDataRntry.getKey());
-	            if(StringUtils.isBlank(sheetName)){
-	            	sheetName = "数据导出";
-	            }
-	            
+	            String sheetName = "数据导出";
+
 	            WritableSheet sheet = workbook.createSheet(sheetName, sheetNum);
 	            
 	        	//设置边框
@@ -185,9 +155,9 @@ public class ExportUtil {
 	    		//自动换行
 	    		//wcfTitle.setWrap(true);
 	    		//设置自动大小
-	    		CellView cellView = new CellView();
-	    		cellView.setAutosize(true);
-	    		sheet.getSettings().setAutomaticFormulaCalculation(true);
+//	    		CellView cellView = new CellView();
+//	    		cellView.setAutosize(true);
+//	    		sheet.getSettings().setAutomaticFormulaCalculation(true);
 	    		
 	            // 表头 表体
 	            int row = 0;
@@ -233,12 +203,7 @@ public class ExportUtil {
     		//wcfTitle.setBorder(jxl.format.Border.ALL,jxl.format.BorderLineStyle.THIN,jxl.format.Colour.BLACK);
     		//自动换行
     		//wcfTitle.setWrap(true);
-    		//设置自动大小
-    		CellView cellView = new CellView();
-    		cellView.setAutosize(true);
-    		sheet.getSettings().setAutomaticFormulaCalculation(true);
-    		
-    		
+
             // 表头
     	   if(null != exportDataList && exportDataList.size()!=0){
     		for (int i = 0; i <  exportDataList.get(0).size(); i++) {
@@ -269,7 +234,6 @@ public class ExportUtil {
 	 * 生成文件到指定路径
 	 * @param exportDataList
 	 * @param filename
-	 * @param response
 	 * @param path
 	 */
 	public static void exportDataToPath(List<List<String>> exportDataList,String filename,String path){
@@ -289,11 +253,7 @@ public class ExportUtil {
     		wcfTitle.setBorder(jxl.format.Border.ALL,jxl.format.BorderLineStyle.THIN,jxl.format.Colour.BLACK);
     		//自动换行
     		//wcfTitle.setWrap(true);
-    		//设置自动大小
-    		CellView cellView = new CellView();
-    		cellView.setAutosize(true);
-    		sheet.getSettings().setAutomaticFormulaCalculation(true);
-    		
+
             // 表头
     	   if(null != exportDataList && exportDataList.size()!=0){
     		for (int i = 0; i <  exportDataList.get(0).size(); i++) {
@@ -317,12 +277,15 @@ public class ExportUtil {
         }   
 	}
 	/**
-	 * 20151114  liguowei
 	 * 从指定路径获取文件
-	 * @param exportDataList
-	 * @param filename
-	 * @param response
+	 * @author mingxiangjun
+	 * @date 2018/7/13 上午10:26
 	 * @param path
+	 * @param filename
+	 * @param request
+	 * @param response
+	 * @return void
+	 * @exception
 	 */
 	public static void getExcelToPath(String path,String filename,HttpServletRequest request,HttpServletResponse response){   
 		InputStream fis = null ;
