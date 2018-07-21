@@ -1,4 +1,4 @@
-package com.ming.dubbo.microservice.api.impl;
+package com.ming.dubbo.microservice.dubbo.provider.api.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ming.dubbo.microservice.api.PersonService;

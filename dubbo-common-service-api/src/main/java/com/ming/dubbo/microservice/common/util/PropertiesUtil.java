@@ -1,6 +1,6 @@
 package com.ming.dubbo.microservice.common.util;
 
-import org.springframework.util.StringUtils;
+import com.alibaba.dubbo.common.utils.StringUtils;
 
 import javax.validation.constraints.NotNull;
 import java.io.File;

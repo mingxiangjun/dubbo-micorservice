@@ -1,0 +1,3 @@
+server:
+  servlet-path: /
+  port: 80

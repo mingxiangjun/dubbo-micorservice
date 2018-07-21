@@ -1,8 +1,12 @@
+package org.ming.microservice.dubbo;
+
 import com.ming.dubbo.microservice.api.PersonService;
 import com.ming.dubbo.microservice.common.util.PropertiesUtil;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Arrays;
@@ -13,10 +17,15 @@ import java.util.PropertyResourceBundle;
  * @author MingXiangjun
  * @create 2018-07-01 14:41
  */
+@SpringBootApplication
 public class ConsumerStarter {
     private static KafkaConsumer consumer = getConsumer();
 
     public static void main(String[] args) {
+        SpringApplication.run(ConsumerStarter.class,args);
+    }
+
+    private void test(){
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("consumer.xml");
         context.start();
 
@@ -25,7 +34,6 @@ public class ConsumerStarter {
 
         consume();
     }
-
     public static KafkaConsumer getConsumer(){
         PropertyResourceBundle bundle = PropertiesUtil.getPropertiesResource("","kafka.properties");
         Properties properties = new Properties();
