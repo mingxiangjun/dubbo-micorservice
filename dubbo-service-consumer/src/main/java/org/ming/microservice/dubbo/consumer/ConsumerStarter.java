@@ -1,11 +1,13 @@
-package org.ming.microservice.dubbo;
+package org.ming.microservice.dubbo.consumer;
 
+import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import com.ming.dubbo.microservice.api.PersonService;
 import com.ming.dubbo.microservice.common.util.PropertiesUtil;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -18,6 +20,7 @@ import java.util.PropertyResourceBundle;
  * @create 2018-07-01 14:41
  */
 @SpringBootApplication
+@EnableDubboConfiguration
 public class ConsumerStarter {
     private static KafkaConsumer consumer = getConsumer();
 
@@ -25,15 +28,6 @@ public class ConsumerStarter {
         SpringApplication.run(ConsumerStarter.class,args);
     }
 
-    private void test(){
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("consumer.xml");
-        context.start();
-
-        PersonService service = (PersonService) context.getBean("personService");
-        System.out.println("=======================final result is:"+service.buildPersonInfo2());
-
-        consume();
-    }
     public static KafkaConsumer getConsumer(){
         PropertyResourceBundle bundle = PropertiesUtil.getPropertiesResource("","kafka.properties");
         Properties properties = new Properties();

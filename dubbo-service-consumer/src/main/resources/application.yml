@@ -1,3 +1,28 @@
 server:
   servlet-path: /
   port: 80
+
+spring:
+  dubbo:
+    application:
+      name: consumer_service
+      owner: mingxiangjun
+    registry:
+      address: zookeeper://ming:2181
+    consumer:
+      group: debug
+      version: 1.0.0
+    provider:
+      group: debug
+      version: 1.0.0
+    protocol:
+      name: dubbo
+      port: 20881
+#dubbo:
+#  application:
+#    id: dubbo-consumer-demo
+#    name: dubbo-consumer-demo
+#  protocol:
+#    id: dubbo
+#    name: dubbo
+#    port: 20880
