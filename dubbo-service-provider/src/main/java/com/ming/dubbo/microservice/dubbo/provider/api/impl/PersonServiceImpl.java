@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.ming.dubbo.microservice.api.PersonService;
 import com.ming.dubbo.microservice.common.util.PropertiesUtil;
+import lombok.extern.log4j.Log4j2;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.stereotype.Component;
@@ -16,16 +17,19 @@ import java.util.Random;
  * @author MingXiangjun
  * @create 2018-07-01 13:25
  */
-@Service(interfaceClass = PersonService.class ,timeout =8000)
+@Log4j2
+@Service(interfaceClass = PersonService.class ,timeout =800000)
 @Component
 public class PersonServiceImpl implements PersonService {
     private static String topic = "kafka";
     @Override
-    public JSONObject buildPersonInfo() {
+    public JSONObject buildPersonInfo(String userName) {
+        log.info("==============>>>>>>>>>>buildPersonInfo<<<<<<<<<<<<<<============");
         Random random = new Random();
         JSONObject resultJson = new JSONObject();
-        resultJson.put("userName", "name"+random.nextInt(300));
+        resultJson.put("userName", userName+random.nextInt(300));
         resultJson.put("age","age"+random.nextInt(200));
+        log.info("==============>>>>>>>>>>MDC info<<<<<<<<<<<<<<============");
 //        KafkaProducer producer = getProducer();
 //        producer.send(new ProducerRecord(topic,"key",resultJson.toJSONString()));
 //        producer.close();

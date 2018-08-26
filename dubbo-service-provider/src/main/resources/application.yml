@@ -23,17 +23,3 @@ spring:
     consumer:
       group-id: default
       key-deserializer:
-logging:
-  level:
-    root: debug
-#dubbo:
-#  application:
-#    id: dubbo-provider-demo
-#    name: dubbo-provider-demo
-#  protocol:
-#    id: dubbo
-#    name: dubbo
-#    port: 20880
-#  registry:
-#    id: my-registry
-#    address: zookeeper://ming:2181
